@@ -22,7 +22,7 @@ int find_greatest_common_divisor(int a, int b)
         if (a >= b) a = (a - b) >> 1;
         else b = (b - a) >> 1;
     }
-
+    
     int greatest_common_divisor = common_divisor * b;
     
     return greatest_common_divisor
@@ -32,7 +32,7 @@ int exponentiate_modularly(int base, int index, int modulus)
 {
     if (base == 0) return 0;
     if (index == 0) return 1;
-
+    
     if (base > modulus) base %= modulus;
     if (index == 1) return base;
     
@@ -46,7 +46,7 @@ int exponentiate_modularly(int base, int index, int modulus)
         index >>= 1;
     }
     
-    return residue;    
+    return residue;
 }
 
 int find_multiplicative_order(int modulus, int base)
@@ -74,6 +74,6 @@ int main()
     int prime_modulus = 37;
     
     int find_modular_square_root = find_modular_square_root(square, prime_modulus);
-
+    
     return 0;
 }
