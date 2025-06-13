@@ -51,19 +51,25 @@ int exponentiate_modularly(int base, int index, int modulus)
 
 int find_multiplicative_order(int modulus, int base)
 {
-    if (find_greatest_common_divisor(modulus, base) != 1) return -1;
+    if (find_greatest_common_divisor(modulus, base) != 1)
+        return -1;
     
     for (int order = 3; order < modulus; order++)
-        if (exponentiate_modularly(base, order, modulus) == 1) return order;
+        if (exponentiate_modularly(base, order, modulus) == 1)
+            return order;
 }
 
 int find_modular_square_root(int perfect_square, int prime_modulus)
 {
-    if (find_greatest_common_divisor(perfect_square, prime_modulus) != 1) return -1;
+    if (find_greatest_common_divisor(perfect_square, prime_modulus) != 1)
+        return -1;
     
     int prime_modulus_less_one = prime_modulus - 1;
     
-    if (exponentiate_modularly(perfect_square, prime_modulus_less_one >> 1, prime_modulus) == prime_modulus_less_one) return -1;
+    if (exponentiate_modularly(perfect_square, prime_modulus_less_one >> 1, prime_modulus) == prime_modulus_less_one)
+        return -1;
+
+    // write prime modulus less one in terms of an odd multiple of a binary power
     
     // TODO
 }
@@ -73,7 +79,7 @@ int main()
     int perfect_square = 25;
     int prime_modulus = 37;
     
-    int find_modular_square_root = find_modular_square_root(square, prime_modulus);
+    int find_modular_square_root = find_modular_square_root(perfect_square, prime_modulus);
     
     return 0;
 }
