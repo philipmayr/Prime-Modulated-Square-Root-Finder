@@ -25,7 +25,7 @@ int find_greatest_common_divisor(int a, int b)
     
     int greatest_common_divisor = common_divisor * b;
     
-    return greatest_common_divisor
+    return greatest_common_divisor;
 }
 
 int exponentiate_modularly(int base, int index, int modulus)
@@ -71,6 +71,16 @@ int find_modular_square_root(int perfect_square, int prime_modulus)
 
     // write prime modulus less one in terms of an odd multiple of a binary power
     
+    int binary_power = 0;
+    
+    while (!(prime_modulus_less_one & 1))
+    {
+        prime_modulus_less_one >>= 1;
+        binary_power++;
+    }
+    
+    printf("%i * 2^%i", prime_modulus_less_one, binary_power);
+    
     // TODO
 }
 
@@ -79,7 +89,7 @@ int main()
     int perfect_square = 25;
     int prime_modulus = 37;
     
-    int find_modular_square_root = find_modular_square_root(perfect_square, prime_modulus);
+    int modular_square_root = find_modular_square_root(perfect_square, prime_modulus);
     
     return 0;
 }
