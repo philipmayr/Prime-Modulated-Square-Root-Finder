@@ -71,15 +71,21 @@ int find_modular_square_root(int perfect_square, int prime_modulus)
 
     // write prime modulus less one in terms of an odd multiple of a binary power
     
+    int odd_multiplier = prime_modulus_less_one;
     int binary_power = 0;
     
-    while (!(prime_modulus_less_one & 1))
+    while (!(odd_multiplier & 1))
     {
-        prime_modulus_less_one >>= 1;
+        odd_multiplier >>= 1;
         binary_power++;
     }
     
-    printf("%i * 2^%i", prime_modulus_less_one, binary_power);
+    int quadratic_non_residue = 2;
+    
+    while (exponentiate_modularly(quadratic_non_residue, prime_modulus_less_one >> 1, prime_modulus) != prime_modulus_less_one)
+        quadratic_non_residue++;
+    
+    printf("%i * 2^%i", odd_multiplier, binary_power);
     
     // TODO
 }
