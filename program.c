@@ -28,6 +28,24 @@ int find_greatest_common_divisor(int a, int b)
     return greatest_common_divisor;
 }
 
+int exponentiate(int base, int index)
+{
+    if (base == 0) return 0;
+    if (index == 0) return 1;
+    if (index == 1) return base;
+    if (index == 2) return base * base;
+    
+    int power = 1;
+    
+    while (index)
+    {
+        power *= power * exponentiate(base, index & 1);
+        index >>= 1;
+    }
+    
+    return power;
+}
+
 int exponentiate_modularly(int base, int index, int modulus)
 {
     if (base == 0) return 0;
@@ -61,8 +79,8 @@ int find_multiplicative_order(int modulus, int base)
 
 int find_modular_square_root(int residue, int prime_modulus)
 {
-    if (find_greatest_common_divisor(residue, prime_modulus) != 1)
-        return -1;
+    // if (find_greatest_common_divisor(residue, prime_modulus) != 1)
+    //     return -1;
     
     int prime_modulus_less_one = prime_modulus - 1;
     
@@ -73,28 +91,61 @@ int find_modular_square_root(int residue, int prime_modulus)
     // write prime modulus less one in terms of an odd multiple of a binary power
     
     int odd_multiplier = prime_modulus_less_one;
-    int binary_power = 0;
+    int exponent_index = 0;
     
     while (!(odd_multiplier & 1))
     {
         odd_multiplier >>= 1;
-        binary_power++;
+        exponent_index++;
     }
     
     int quadratic_non_residue = 2;
     
-    while (exponentiate_modularly(quadratic_non_residue, prime_modulus_less_one >> 1, prime_modulus) == 1)
+    while (exponentiate_modularly(quadratic_non_residue, prime_modulus_less_one >> 1, prime_modulus) != prime_modulus_less_one)
         quadratic_non_residue++;
     
-    printf("%i * 2^%i", odd_multiplier, binary_power);
+    printf("%d * 2^%d", odd_multiplier, exponent_index);
     
-    // TODO
+    int M = exponent_index;
+    int c = exponentiate_modularly(quadratic_non_residue, odd_multiplier, prime_modulus);
+    int t = exponentiate_modularly(residue, odd_multiplier, prime_modulus);
+    int R = exponentiate_modularly(residue, (odd_multiplier + 1) >> 1, prime_modulus);
+    
+    int iteration = 0;
+    
+    while (iteration < 100)
+    {
+        iteration++;
+        
+        if (t == 0) return 0;
+        if (t == 1) return R;
+        
+        int i = 1;
+        
+        while (i < M)
+        {
+            int index = exponentiate(2, i);
+            int residue = exponentiate_modularly(t, index, prime_modulus);
+            if (residue == 1) break;
+            i++;
+        }
+
+        int x = M - i - 1;
+        int index = exponentiate(2, x);
+
+        int b = exponentiate_modularly(c, index, prime_modulus);
+        
+        // M = i;
+        // c = (b * b) % prime_modulus;
+        // t = (t * c) % prime_modulus;
+        // R = (R * b) % prime_modulus;
+    }
 }
 
 int main()
 {
-    int perfect_square = 25;
-    int prime_modulus = 37;
+    int perfect_square = 5;
+    int prime_modulus = 41;
     
     int modular_square_root = find_modular_square_root(perfect_square, prime_modulus);
     
