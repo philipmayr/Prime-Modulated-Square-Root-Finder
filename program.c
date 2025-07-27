@@ -1,4 +1,4 @@
-// Shanks' Algorithm
+// Tonelli-Shanks' Algorithm
 
 #include <stdio.h>
 
