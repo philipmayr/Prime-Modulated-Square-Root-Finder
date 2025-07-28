@@ -77,7 +77,7 @@ int find_multiplicative_order(int modulus, int base)
             return order;
 }
 
-int find_modular_square_root(int residue, int prime_modulus)
+int find_prime_modulated_square_root(int residue, int prime_modulus)
 {
     // if (find_greatest_common_divisor(residue, prime_modulus) != 1)
     //     return -1;
@@ -139,12 +139,65 @@ int find_modular_square_root(int residue, int prime_modulus)
 
 int main()
 {
-    int perfect_square = 5;
-    int prime_modulus = 41;
-    
-    int modular_square_root = find_modular_square_root(perfect_square, prime_modulus);
-    
-    printf("%i", modular_square_root);
+    for (;;)
+    {
+        printf("Enter a prime modulus: ");
+        
+        // integer input validation
+        // https://jackstromberg.com/2013/02/how-to-validate-numeric-integer-input-in-c/
+        
+        int input, status, buffer;
+        
+        status = scanf("%d", & input);
+        
+        while (status != 1)
+        {
+            while ((buffer = getchar()) != EOF && buffer != '\n');
+            
+            printf("Invalid input.");
+            printf("\n\n");
+            printf("Enter a prime modulus: ");
+            
+            status = scanf("%d", & input);
+        }
+        
+        int prime_modulus_candidate = input;
+        
+        printf("Enter a quadratic residue modulo %i: ", prime_modulus_candidate);
+        
+        // integer input validation
+        // https://jackstromberg.com/2013/02/how-to-validate-numeric-integer-input-in-c/
+        
+        status = scanf("%d", & input);
+        
+        while (status != 1)
+        {
+            while ((buffer = getchar()) != EOF && buffer != '\n');
+            
+            printf("Invalid input.");
+            printf("\n\n");
+            printf("Enter a quadratic residue modulo %i: ", prime_modulus_candidate);
+            
+            status = scanf("%d", & input);
+        }
+        
+        int quadratic_residue_candidate = input;
+        
+        printf("\n");
+        
+        int modular_square_root = find_prime_modulated_square_root(quadratic_residue_candidate, prime_modulus_candidate);
+        
+        if (modular_square_root == -1)
+        {
+            printf("%i is not a quadratic residue modulo %i.", quadratic_residue_candidate, prime_modulus_candidate);
+        }
+        else
+        {
+            printf("The square root of %i modulated by %i is %i.", quadratic_residue_candidate, prime_modulus_candidate, modular_square_root);
+        }
+        
+        printf("\n\n");
+    }
     
     return 0;
 }
