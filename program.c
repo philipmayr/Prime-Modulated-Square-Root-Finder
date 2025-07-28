@@ -193,7 +193,7 @@ int main()
         }
         else
         {
-            printf("The square root of %i modulated by %i is %i.", quadratic_residue_candidate, prime_modulus_candidate, modular_square_root);
+            printf("The square root of %i modulo %i is %i.", quadratic_residue_candidate, prime_modulus_candidate, modular_square_root);
         }
         
         printf("\n\n");
