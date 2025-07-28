@@ -1,4 +1,4 @@
-// Tonelli-Shanks' Algorithm
+// Tonelli-Shanks Algorithm
 
 #include <stdio.h>
 
@@ -106,34 +106,33 @@ int find_prime_modulated_square_root(int residue, int prime_modulus)
     
     // printf("%d * 2^%d", odd_multiplier, exponent_index);
     
-    int M = exponent_index;
-    int c = exponentiate_modularly(quadratic_non_residue, odd_multiplier, prime_modulus);
-    int t = exponentiate_modularly(residue, odd_multiplier, prime_modulus);
-    int R = exponentiate_modularly(residue, (odd_multiplier + 1) >> 1, prime_modulus);
+    int odd_multiplier_exponentiated_quadratic_nonresidue = exponentiate_modularly(quadratic_non_residue, odd_multiplier, prime_modulus);
+    int odd_multiplier_exponentiated_quadratic_residue = exponentiate_modularly(residue, odd_multiplier, prime_modulus);
+    int odd_multiplier_plus_one_halved_exponentiated_quadratic_residue = exponentiate_modularly(residue, (odd_multiplier + 1) >> 1, prime_modulus);
     
     for (;;)
     {
-        if (t == 0) return 0;
-        if (t == 1) return R;
+        if (odd_multiplier_exponentiated_quadratic_residue == 0) return 0;
+        if (odd_multiplier_exponentiated_quadratic_residue == 1) return odd_multiplier_plus_one_halved_exponentiated_quadratic_residue;
         
         int i = 1;
         
-        while (i < M)
+        while (i < exponent_index)
         {
             int index = exponentiate(2, i);
-            int residue = exponentiate_modularly(t, index, prime_modulus);
+            int residue = exponentiate_modularly(odd_multiplier_exponentiated_quadratic_residue, index, prime_modulus);
             if (residue == 1) break;
             i++;
         }
 
-        int index = exponentiate(2, M - i - 1);
+        int index = exponentiate(2, exponent_index - i - 1);
 
-        int b = exponentiate_modularly(c, index, prime_modulus);
+        int binary_power_of_odd_multiplier_exponentiated_quadratic_nonresidue = exponentiate_modularly(odd_multiplier_exponentiated_quadratic_nonresidue, index, prime_modulus);
         
-        M = i;
-        c = (b * b) % prime_modulus;
-        t = (t * c) % prime_modulus;
-        R = (R * b) % prime_modulus;
+        exponent_index = i;
+        odd_multiplier_exponentiated_quadratic_nonresidue = (binary_power_of_odd_multiplier_exponentiated_quadratic_nonresidue * binary_power_of_odd_multiplier_exponentiated_quadratic_nonresidue) % prime_modulus;
+        odd_multiplier_exponentiated_quadratic_residue = (odd_multiplier_exponentiated_quadratic_residue * odd_multiplier_exponentiated_quadratic_nonresidue) % prime_modulus;
+        odd_multiplier_plus_one_halved_exponentiated_quadratic_residue = (odd_multiplier_plus_one_halved_exponentiated_quadratic_residue * binary_power_of_odd_multiplier_exponentiated_quadratic_nonresidue) % prime_modulus;
     }
 }
 
@@ -193,7 +192,7 @@ int main()
         }
         else
         {
-            printf("The square root of %i modulo %i is %i.", quadratic_residue_candidate, prime_modulus_candidate, modular_square_root);
+            printf("The square root of %i modulated by %i is %i.", quadratic_residue_candidate, prime_modulus_candidate, modular_square_root);
         }
         
         printf("\n\n");
