@@ -104,19 +104,15 @@ int find_modular_square_root(int residue, int prime_modulus)
     while (exponentiate_modularly(quadratic_non_residue, prime_modulus_less_one >> 1, prime_modulus) != prime_modulus_less_one)
         quadratic_non_residue++;
     
-    printf("%d * 2^%d", odd_multiplier, exponent_index);
+    // printf("%d * 2^%d", odd_multiplier, exponent_index);
     
     int M = exponent_index;
     int c = exponentiate_modularly(quadratic_non_residue, odd_multiplier, prime_modulus);
     int t = exponentiate_modularly(residue, odd_multiplier, prime_modulus);
     int R = exponentiate_modularly(residue, (odd_multiplier + 1) >> 1, prime_modulus);
     
-    int iteration = 0;
-    
-    while (iteration < 100)
+    for (;;)
     {
-        iteration++;
-        
         if (t == 0) return 0;
         if (t == 1) return R;
         
@@ -130,15 +126,14 @@ int find_modular_square_root(int residue, int prime_modulus)
             i++;
         }
 
-        int x = M - i - 1;
-        int index = exponentiate(2, x);
+        int index = exponentiate(2, M - i - 1);
 
         int b = exponentiate_modularly(c, index, prime_modulus);
         
-        // M = i;
-        // c = (b * b) % prime_modulus;
-        // t = (t * c) % prime_modulus;
-        // R = (R * b) % prime_modulus;
+        M = i;
+        c = (b * b) % prime_modulus;
+        t = (t * c) % prime_modulus;
+        R = (R * b) % prime_modulus;
     }
 }
 
@@ -148,6 +143,8 @@ int main()
     int prime_modulus = 41;
     
     int modular_square_root = find_modular_square_root(perfect_square, prime_modulus);
+    
+    printf("%i", modular_square_root);
     
     return 0;
 }
