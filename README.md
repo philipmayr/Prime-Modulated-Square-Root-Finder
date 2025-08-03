@@ -22,10 +22,10 @@ For every group modulated by a prime, the order, or number of elements, thereof 
 
 Descriptions of Helper Functions:
 
-    int find_greatest_common_divisor(int a, int b): finds the greatest common divisor of two numbers using binary bit shifts, comparisons, and subtractions.
+int find_greatest_common_divisor(int a, int b): Finds the greatest common divisor of two numbers using binary bit shifts, comparisons, and subtractions.
 
-    int exponentiate(int base, int index): exponentiates the base to the power of the index by squaring and multiplying.
+int exponentiate(int base, int index): Exponentiates the base to the power of the index by squaring and multiplying.
 
-    int exponentiate_modularly(int base, int index, int modulus): exponentiates the base to the power of the index by squaring and multiplying, modulating by the modulus after each operation.
+int exponentiate_modularly(int base, int index, int modulus): Exponentiates the base to the power of the index by squaring and multiplying, modulating by the modulus after each operation.
 
-    int find_multiplicative_order(int modulus, int base): finds the multiplicative order of the base modulated by the modulus. 
+int find_multiplicative_order(int modulus, int base): Finds the multiplicative order of the base modulated by the modulus. The multiplicative order is the power to which the base must be raised so as to get a modulated residue of 1.
