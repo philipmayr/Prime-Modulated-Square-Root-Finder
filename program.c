@@ -230,15 +230,18 @@ int main()
         
         printf("\n");
         
-        int modular_square_root = find_prime_modulated_square_root(quadratic_residue_candidate, prime_modulus);
+        int modular_square_root_candidate = find_prime_modulated_square_root(quadratic_residue_candidate, prime_modulus);
         
-        if (modular_square_root == -1)
+        if (modular_square_root_candidate == -1)
         {
             printf("%i is not a quadratic residue modulo %i.", quadratic_residue_candidate, prime_modulus);
         }
         else
         {
-            printf("The square roots of %i modulated by %i are %i and %i.", quadratic_residue_candidate, prime_modulus, modular_square_root, prime_modulus - modular_square_root);
+            int first_modular_square_root = modular_square_root_candidate;
+            int second_modular_square_root = prime_modulus - first_modular_square_root;
+            
+            printf("The square roots of %i modulated by %i are %i and %i.", quadratic_residue_candidate, prime_modulus, first_modular_square_root, second_modular_square_root);
         }
         
         printf("\n\n");
