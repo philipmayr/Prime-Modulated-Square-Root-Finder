@@ -16,6 +16,6 @@ For quadratic non-residues, the following congruence holds:
 
 ![quadratic non-residue](assets/quadratic_nonresidue.svg)
 
-So a residue of 1 comes up for squares, and that of negative 1 for non-squares.
+So a residue of 1 comes up for squares and that of negative 1 for non-squares.
 
 For every group modulated by a prime, the order, or number of elements, thereof is p - 1. Half of the residues of such prime modulated are quadratic residues, and half are not. So there are (p - 1) / 2 quadratic residues and (p - 1) / 2 quadratic non-residues. Given 23 for p, we have (23 - 1) / 2 or 11 quadratic residues, and (23 - 1) / 2 or 11 quadratic non-residues.
