@@ -1,4 +1,4 @@
-# Prime-Modulated-Square-Root-Finder
+# Prime Modulated Square Root Finder
 
 This program finds the roots of prime modulated squares, that is, it solves for r in the congruence r² ≡ n (mod p), where the modulus p is a prime number and where the residue n is a quadratic residue.
 
