@@ -11,3 +11,4 @@ For example, given 23 for the modulus p and 9 for the residue n, there are two s
 
 Every prime modulated quadratic residue has two distinct roots. If the first root is r² ≡ n (mod p), then the second root is p - r. In the above example, the first root is 3, and the modulus is 23, so the second root must be 20, as 23 - 3 is equal to 20. Euler's criterion states that for every non-zero n modulated by a greater than 2 prime p, n is a quadratic residue, that is, it is a perfect square having square roots, if and only when:
 
+    !(image alt)[https://github.com/philipmayr/Prime-Modulated-Square-Root-Finder/blob/edb9b5602673e3697fd6c3e901b97f9db28d2cf4/assets/congruence.svg]
